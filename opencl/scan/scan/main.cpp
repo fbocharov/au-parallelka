@@ -13,7 +13,7 @@ using Array = std::vector<float>;
 auto constexpr SCAN_SOURCE_FILE = "scan.cl";
 auto constexpr LOCAL_SCAN_KERNEL_NAME = "local_scan";
 auto constexpr ADD_BOUNDS_KERNEL_NAME = "add_lefter_bounds";
-size_t constexpr WORK_GROUP_SIZE = 4;
+size_t constexpr WORK_GROUP_SIZE = 256;
 
 void readArray(std::istream & stream, Array & array, size_t size)
 {
@@ -82,8 +82,8 @@ void runDeviceScan(Array const & input, Array & output)
 }
 
 size_t roundUp(size_t n) {
-  return n % WORK_GROUP_SIZE 
-          ? n + (WORK_GROUP_SIZE - (n % WORK_GROUP_SIZE)) 
+  return n % WORK_GROUP_SIZE
+          ? n + (WORK_GROUP_SIZE - (n % WORK_GROUP_SIZE))
           : n;
 }
 
